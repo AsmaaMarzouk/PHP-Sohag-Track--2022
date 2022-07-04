@@ -1,0 +1,73 @@
+<!-- For test date pipe -->
+<!-- <div>
+  Current time: {{todayDate|date:'short'}}
+</div> -->
+
+<table class="table m-2">
+    <thead>
+        <tr class="bg-dark text-light">
+          <!-- <th scope="col">ID</th> -->
+          <th scope="col">No.</th>
+          <th scope="col">Name</th>
+          <th scope="col">Image</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Price in USD</th>
+          <th scope="col">Price in EGP</th>
+          <th scope="col">Buy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- *ngFor -->
+        <!-- local variables => built in variables inside ngFor ... -->
+        <!-- <tr *ngFor="let prd of prdList;let i=index" [hidden]="prd.quantity==0"> -->
+            <!-- class binding -->
+            <!-- <tr *ngFor="let prd of prdList;let i=index" [class.bg-warning]="prd.quantity==0" [class.text-danger]="prd.quantity==0"> -->
+                <!-- style binding => ternary operator -->
+                <!-- <tr *ngFor="let prd of prdList;let i=index;trackBy:trackByFunc" [style.background-color]="(prd.quantity==0)?'lightyellow':'lightblue'"> -->
+       <!-- virutal containers  -->
+       <!-- ng-container , ng-content , ng-template -->
+         <!-- <tr *ngFor="let prd of prdList;let i=index;trackBy:trackByFunc"> -->
+          <ng-container *ngFor="let prd of prdList;let i=index;trackBy:trackByFunc">
+            <!-- <tr *ngIf="prd.quantity>0" > -->
+                <!-- <tr [ngClass]="{'bg-warning':prd.quantity==0,'text-danger':prd.quantity==0}"> -->
+             <tr [ngStyle]="{'background-color':(prd.quantity==0)?'lightyellow':'lightblue','color':(prd.quantity==0)?'red':'blue'}">
+            <td>{{i+1}}</td>
+            <td>{{prd.name|uppercase}}</td>
+            <!-- <td><img [src]="prd.imgURL" BorderBox hoverColor="brown"></td> -->
+            <td><img [src]="prd.imgURL" BorderBox="pink" hoverColor="brown"></td>
+            <!-- <td>{{prd.quantity}}</td> -->
+            <td>
+                <!-- first test case -->
+                <!-- <span *ngIf="prd.quantity>0">{{prd.quantity}}</span>
+                <span *ngIf="prd.quantity==0">out of stock</span> -->
+
+                <!-- second test case -->
+                <!-- <span *ngIf="prd.quantity>0;else outOfStock">{{prd.quantity}}</span> -->
+                <!-- template reference =>#referenceName -->
+                <!-- <ng-template #outOfStock>out of stock</ng-template> -->
+
+                <!-- third test case -->
+                <!-- <ng-container *ngIf="prd.quantity>0;else outOfStock">{{prd.quantity}}</ng-container> -->
+                <!-- template reference =>#referenceName -->
+                <!-- <ng-template #outOfStock>out of stock</ng-template> -->
+
+                <!-- forth test case -->
+                <!-- switch -->
+                <ng-container [ngSwitch]="prd.quantity">
+                    <ng-container *ngSwitchCase="0">Out Of Stock</ng-container>
+                    <ng-container *ngSwitchCase="1">Last Item</ng-container>
+                    <ng-container *ngSwitchCase="2">Last Two Item</ng-container>
+                    <ng-container *ngSwitchDefault>{{prd.quantity}}</ng-container>
+
+                </ng-container>
+            </td>
+            <!-- <td>{{prd.price|currency:'USD':'symbol'}}</td> -->
+            <!-- <td>{{prd.price|currency:'EGP':'code'}}</td> -->
+            <td>{{prd.price|currency:'USD':'symbol'}}</td>
+            <td>{{prd.price|usdToEgp:20|currency:'EGP'}}</td>
+            <!-- <td><button class="btn btn-success" [hidden]="prd.quantity==0">Buy</button></td> -->
+            <td><button class="btn btn-success" [disabled]="prd.quantity==0">Buy</button></td>
+        </tr>
+    </ng-container>
+      </tbody>
+</table>

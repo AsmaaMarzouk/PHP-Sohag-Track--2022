@@ -1,0 +1,25 @@
+import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+
+@Directive({
+  selector: '[BorderBox]'
+})
+export class BorderBoxDirective {
+  // document.getElementByID().style.border
+// private elem:ElementRef;
+
+// property decorator
+@Input() hoverColor:string="Yellow";
+@Input('BorderBox') defaultColor:string="darkblue";
+constructor(private elem:ElementRef) { 
+  elem.nativeElement.style.border =`2px solid ${this.defaultColor}`;
+}
+
+// Events
+// decorator method
+@HostListener('mouseover') onMouseOverFunc(){
+this.elem.nativeElement.style.border =`3px dashed ${this.hoverColor}`;
+}
+@HostListener('mouseout') onMouseOutFunc(){
+  this.elem.nativeElement.style.border =`3px solid ${this.defaultColor}`;
+  }
+}

@@ -1,6 +1,34 @@
+<!-- Day2 -->
+<h2>{{userName}}</h2>
+<!-- property binding -->
+<img [src]="storeinfo.coverImgURL" *ngIf="showImg">
+<br>
+<button class="btn btn-primary" (click)="toggleImg()">Toggle Img</button>
+<div class="mb-3">
+    <label for="feedback">Enter your feedback: </label>
+    <!-- one way binding -->
+    <!-- <input type="text" class="form-control" id="feedback" name="fback" [value]="userFeedback"> -->
+    <input type="text" class="form-control" id="feedback" name="fback" [(ngModel)]="userFeedback">
+<br>
+For test: {{userFeedback}}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- <h1>Data from interface:  {{storeinfo.name}}</h1> -->
 <h1>Data from class:  {{storeDataClass.name}}</h1>
-<img src="{{storeinfo.coverImgURL}}">
+<!-- <img src="{{storeinfo.coverImgURL}}"> -->
 
 <!-- <p>{{storeinfo.branches}}</p> -->
 <!-- Structure Directive =>* -->

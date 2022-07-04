@@ -8,6 +8,9 @@ import { StoreInfo } from 'src/app/Models/store-info';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  // Day2
+  userName:string="User";
+  userFeedback:string="Goodtest";
 // Interface
 storeinfo: StoreInfo={name:'ITI Store',
                      coverImgURL:'https://fakeimg.pl/250x100/',
@@ -23,8 +26,14 @@ storeinfo: StoreInfo={name:'ITI Store',
                                       'https://fakeimg.pl/250x100/',
                                       ['Qena','Sohag','Smart']);
   }
+  // Day2
+  // flag => boolean (true or false)
+  showImg:boolean=true;
  
+  toggleImg(){
+    this.showImg=!this.showImg;
 
+  }
 
 
 
