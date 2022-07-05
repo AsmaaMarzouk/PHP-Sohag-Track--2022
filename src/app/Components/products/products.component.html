@@ -13,6 +13,7 @@
           <th scope="col">Quantity</th>
           <th scope="col">Price in USD</th>
           <th scope="col">Price in EGP</th>
+          <th scope="col">Count</th>
           <th scope="col">Buy</th>
         </tr>
       </thead>
@@ -27,14 +28,16 @@
        <!-- virutal containers  -->
        <!-- ng-container , ng-content , ng-template -->
          <!-- <tr *ngFor="let prd of prdList;let i=index;trackBy:trackByFunc"> -->
-          <ng-container *ngFor="let prd of prdList;let i=index;trackBy:trackByFunc">
+          <!-- <ng-container *ngFor="let prd of prdList;let i=index;trackBy:trackByFunc"> -->
+            <!-- Day3 change prdList to  prdListOfCat -->
+            <ng-container *ngFor="let prd of  prdListOfCat;let i=index;trackBy:trackByFunc">
             <!-- <tr *ngIf="prd.quantity>0" > -->
                 <!-- <tr [ngClass]="{'bg-warning':prd.quantity==0,'text-danger':prd.quantity==0}"> -->
              <tr [ngStyle]="{'background-color':(prd.quantity==0)?'lightyellow':'lightblue','color':(prd.quantity==0)?'red':'blue'}">
             <td>{{i+1}}</td>
             <td>{{prd.name|uppercase}}</td>
             <!-- <td><img [src]="prd.imgURL" BorderBox hoverColor="brown"></td> -->
-            <td><img [src]="prd.imgURL" BorderBox="pink" hoverColor="brown"></td>
+            <td><img [src]="prd.imgURL" BorderBox="yellow" hoverColor="brown"></td>
             <!-- <td>{{prd.quantity}}</td> -->
             <td>
                 <!-- first test case -->
@@ -66,8 +69,17 @@
             <td>{{prd.price|currency:'USD':'symbol'}}</td>
             <td>{{prd.price|usdToEgp:20|currency:'EGP'}}</td>
             <!-- <td><button class="btn btn-success" [hidden]="prd.quantity==0">Buy</button></td> -->
-            <td><button class="btn btn-success" [disabled]="prd.quantity==0">Buy</button></td>
+
+            <!-- Day3 -->
+            <!-- template reference -->
+            <td><input type="number" class="form-control" #itemsCount></td>
+            <td><button class="btn btn-success" [disabled]="prd.quantity==0" (click)="updateTotalPrice(prd.price,itemsCount.value)">Buy</button></td>
         </tr>
     </ng-container>
       </tbody>
 </table>
+
+<!-- <div class="bg-info">
+  <h2>For test total price: {{orderTotalPrice}}</h2>
+
+</div> -->

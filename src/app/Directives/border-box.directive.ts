@@ -1,9 +1,9 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Directive({
   selector: '[BorderBox]'
 })
-export class BorderBoxDirective {
+export class BorderBoxDirective implements OnChanges {
   // document.getElementByID().style.border
 // private elem:ElementRef;
 
@@ -11,8 +11,13 @@ export class BorderBoxDirective {
 @Input() hoverColor:string="Yellow";
 @Input('BorderBox') defaultColor:string="darkblue";
 constructor(private elem:ElementRef) { 
-  elem.nativeElement.style.border =`2px solid ${this.defaultColor}`;
+  // elem.nativeElement.style.border =`2px solid ${this.defaultColor}`;
 }
+  ngOnChanges(): void {
+  this.elem.nativeElement.style.border =`2px solid ${this.defaultColor}`;
+   
+  }
+
 
 // Events
 // decorator method

@@ -1,0 +1,31 @@
+<div class="mb-3">
+    <label for="cat" class="form-label">Category:</label>
+    <select name="cat" id="cat" class="form-control" [(ngModel)]="selectedCatID">
+        <option value="0">All</option>
+        <option *ngFor="let cat of catList" [value]="cat.id">
+            {{cat.name}}
+        </option>
+    </select>
+</div>
+<!-- <div class="bg-warning">
+    For test category id : {{selectedCatID}}
+</div> -->
+
+<!-- event binding => (event)="funName()" -->
+<app-products [receivedCatID]="selectedCatID" (totatPriceChanged)="onTotalPriceChanged($event)"></app-products>
+
+
+<!-- Print total price inside parent -->
+<h2>Total order price: {{receivedOrderTotalPrice}}</h2>
+
+<!-- For test viewchild -->
+<!-- <div class="mb-3">
+    <label for="">Client Name: </label> -->
+    <!-- Template Reference -->
+    <!-- <input type="text" id="clientName" name="clientName" class="form-control" #clientName>
+</div> -->
+
+
+<!-- Viewchild -->
+<h3>To be removed: </h3>
+<button class="btn btn-primary" (click)="getNewArr()">Test viewchild</button>
