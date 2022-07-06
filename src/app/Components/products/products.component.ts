@@ -1,18 +1,23 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges,EventEmitter,Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Iproduct } from 'src/app/Models/iproduct';
+import { ProductService } from 'src/app/Services/product.service';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  styleUrls: ['./products.component.css'],
+  // providers:[ProductService]
 })
 export class ProductsComponent implements OnInit,OnChanges {
 // Day2
 // date
 todayDate:Date = new Date();
   // declare array  of iproducts
+ 
   //catID (1 => mobiles),(2=>TV),(3=>Labtop) 
-  prdList:Iproduct[];
+    // Day4
+  // prdList:Iproduct[];
 
   // Day3
   prdListOfCat:Iproduct[]=[];
@@ -23,24 +28,32 @@ todayDate:Date = new Date();
   // total price
   orderTotalPrice:number = 0;
 
-  constructor() {
+  // Day4 => Inject
+  constructor(private prdService:ProductService,
+              private router:Router) {
     this.totatPriceChanged=new EventEmitter<number>();
-    this.prdList=[
-      {id:1,name: 'Samsung',price:12000,quantity:0,imgURL:'https://fakeimg.pl/250x100',catID:1},
-      {id:8,name: 'Redmi',price:22000,quantity:1,imgURL:'https://fakeimg.pl/250x100',catID:1},
-      {id:20,name: 'LG',price:25000,quantity:3,imgURL:'https://fakeimg.pl/250x100',catID:2},
-      {id:33,name: 'Tornado',price:33000,quantity:2,imgURL:'https://fakeimg.pl/250x100',catID:2},
-      {id:15,name: 'Lenovo',price:45000,quantity:0,imgURL:'https://fakeimg.pl/250x100',catID:3},
-      {id:17,name: 'Dell',price:17500,quantity:5,imgURL:'https://fakeimg.pl/250x100',catID:3}
-    ] ;
+    // Day4
+    // this.prdList=[
+    //   {id:1,name: 'Samsung',price:12000,quantity:0,imgURL:'https://fakeimg.pl/250x100',catID:1},
+    //   {id:8,name: 'Redmi',price:22000,quantity:1,imgURL:'https://fakeimg.pl/250x100',catID:1},
+    //   {id:20,name: 'LG',price:25000,quantity:3,imgURL:'https://fakeimg.pl/250x100',catID:2},
+    //   {id:33,name: 'Tornado',price:33000,quantity:2,imgURL:'https://fakeimg.pl/250x100',catID:2},
+    //   {id:15,name: 'Lenovo',price:45000,quantity:0,imgURL:'https://fakeimg.pl/250x100',catID:3},
+    //   {id:17,name: 'Dell',price:17500,quantity:5,imgURL:'https://fakeimg.pl/250x100',catID:3}
+    // ] ;
   }
   // Day3
   ngOnChanges(): void {
-    this.getProductsOfCat();
+    // this.getProductsOfCat();
+    // Day4
+  this.prdListOfCat = this.prdService.getProductsByCatID(this.receivedCatID);
   }
   
   ngOnInit(): void {
     // this.getProductsOfCat();
+    // Day4
+   // this.prdListOfCat = this.prdService.getProductsByCatID(this.receivedCatID);
+
   }
 
   trackByFunc(index: number,item:Iproduct){
@@ -50,15 +63,15 @@ todayDate:Date = new Date();
 
   // Day3
   // Filter data by category
-  private getProductsOfCat(){
+  // private getProductsOfCat(){
 
-    if(this.receivedCatID==0){
-     this.prdListOfCat= Array.from(this.prdList);
-     return;
-    }
-     this.prdListOfCat =  this.prdList.filter((prd)=>prd.catID==this.receivedCatID);
+  //   if(this.receivedCatID==0){
+  //    this.prdListOfCat= Array.from(this.prdList);
+  //    return;
+  //   }
+  //    this.prdListOfCat =  this.prdList.filter((prd)=>prd.catID==this.receivedCatID);
 
-  }
+  // }
 
   // Calculate total price of products
   updateTotalPrice(prdPrice:number,itemsCount:any){
@@ -77,4 +90,10 @@ todayDate:Date = new Date();
 
   }
 
+
+  openProductDetails(prdID:number){
+
+    this.router.navigate(['Products',prdID]);
+
+  }
 }

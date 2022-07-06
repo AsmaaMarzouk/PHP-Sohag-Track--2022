@@ -13,6 +13,7 @@
           <th scope="col">Quantity</th>
           <th scope="col">Price in USD</th>
           <th scope="col">Price in EGP</th>
+          <th scope="col">Details</th>
           <th scope="col">Count</th>
           <th scope="col">Buy</th>
         </tr>
@@ -70,6 +71,10 @@
             <td>{{prd.price|usdToEgp:20|currency:'EGP'}}</td>
             <!-- <td><button class="btn btn-success" [hidden]="prd.quantity==0">Buy</button></td> -->
 
+            <!-- Day4 -->
+            <td><button class="btn btn-info" (click)="openProductDetails(prd.id)">Details</button></td>
+            <!-- Another solution -->
+            <!-- <td><a class="btn btn-info" [routerLink]="['/Products',prd.id]">Details</a></td> -->
             <!-- Day3 -->
             <!-- template reference -->
             <td><input type="number" class="form-control" #itemsCount></td>
