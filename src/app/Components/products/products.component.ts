@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges,EventEmitter,Output 
 import { Router } from '@angular/router';
 import { Iproduct } from 'src/app/Models/iproduct';
 import { ProductService } from 'src/app/Services/product.service';
+import { ProductsApiService } from 'src/app/Services/products-api.service';
 
 @Component({
   selector: 'app-products',
@@ -30,7 +31,8 @@ todayDate:Date = new Date();
 
   // Day4 => Inject
   constructor(private prdService:ProductService,
-              private router:Router) {
+              private router:Router,
+              private productAPIService:ProductsApiService) {
     this.totatPriceChanged=new EventEmitter<number>();
     // Day4
     // this.prdList=[
@@ -46,13 +48,23 @@ todayDate:Date = new Date();
   ngOnChanges(): void {
     // this.getProductsOfCat();
     // Day4
-  this.prdListOfCat = this.prdService.getProductsByCatID(this.receivedCatID);
+  // this.prdListOfCat = this.prdService.getProductsByCatID(this.receivedCatID);
+  
+  // Day5
+  this.productAPIService.getProductsByCatID(this.receivedCatID).subscribe(prdList=>{
+    this.prdListOfCat=prdList;
+  })
+
   }
   
   ngOnInit(): void {
     // this.getProductsOfCat();
     // Day4
    // this.prdListOfCat = this.prdService.getProductsByCatID(this.receivedCatID);
+  //  Day5
+  this.productAPIService.getAllProducts().subscribe(prdList=>{
+    this.prdListOfCat=prdList;
+  })
 
   }
 
